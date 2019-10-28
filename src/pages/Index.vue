@@ -1,12 +1,13 @@
 <template>
   <Layout>
-    <div class="flex flex-wrap justify-center bg-gray-300">
-      <div class="sm:w-full md:w-1/2 lg:w-1/2 xl:w-1/3 mb-4 bg-white">
+    <div class="flex flex-wrap justify-center bg-gray-200">
+      <div class="w-full sm:w-full md:w-1/2 lg:w-1/2 xl:w-1/3 mb-4 bg-white">
         <header id="header">
           <h1 class="text-2xl">Case Logger</h1>
         </header>
         <form class="flex flex-col">
           <section class="flex flex-col" id="patient">
+            <p>Patient</p>
             <div class="flex flex-row">
               <form-input title="Date" :model="date"></form-input>
             </div>
@@ -17,9 +18,56 @@
               <form-input title="First Name" :model="firstName"></form-input>
               <form-input title="Last Name" :model="lastName"></form-input>
             </div>
+            <div class="flex flex-row">
+              <form-input title="Facility" :model="facility"></form-input>
+            </div>
           </section>
-          <section class="flex w-full" id="procedure">
-            <div class="flex flex-row"></div>
+          <section class="flex flex-col" id="procedure">
+            <p>Procedure</p>
+            <div class="flex flex-row">
+              <form-input title="Anesthesia Start" :model="anesthesiaStart"></form-input>
+              <form-input title="Anesthesia End" :model="anesthesiaEnd"></form-input>
+            </div>
+            <div class="block-template">
+              <div class="flex flex-row">
+                <form-input title="Block" :model="blockNum"></form-input>
+              </div>
+              <div class="flex flex-row">
+                <form-input title="Block Start" :model="blockStart"></form-input>
+                <form-input title="Block End" :model="blockEnd"></form-input>
+              </div>
+            </div>
+            <div class="line-template">
+              <div class="flex flex-row">
+                <form-input title="Line" :model="lineNum"></form-input>
+              </div>
+              <div class="flex flex-row">
+                <form-input title="Line Start" :model="lineStart"></form-input>
+                <form-input title="Line End" :model="lineEnd"></form-input>
+              </div>
+            </div>
+            <div class="flex flex-row">
+              <textarea
+                :model="notes"
+                class="w-full border border-red-500"
+                placeholder="Additional Notes"
+              ></textarea>
+            </div>
+          </section>
+          <section class="flex flex-col" id="controls">
+            <div class="flex flex-row justify-around">
+              <button
+                class="w-full bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
+              >Add Block</button>
+              <button
+                class="w-full bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
+              >Add Line</button>
+            </div>
+            <div class="flex flex-row justify-around">
+              <button
+                class="w-full bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
+              >Save</button>
+            </div>
           </section>
         </form>
       </div>
