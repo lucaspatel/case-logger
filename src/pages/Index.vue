@@ -1,13 +1,13 @@
 <template>
   <Layout>
     <div class="flex flex-wrap justify-center bg-gray-200">
-      <div class="w-full sm:w-full md:w-1/2 lg:w-1/2 xl:w-1/3 mb-4 bg-white">
+      <div class="w-full sm:w-full md:w-1/2 lg:w-1/2 xl:w-1/3 px-2 bg-white">
         <header id="header">
-          <h1 class="text-2xl">Case Logger</h1>
+          <h1 class="text-4xl mx-1 py-8">Case Logger</h1>
         </header>
         <form class="flex flex-col">
-          <section class="flex flex-col" id="patient">
-            <p>Patient</p>
+          <section class="flex flex-col mb-8" id="patient">
+            <p class="mx-1">Patient</p>
             <div class="flex flex-row">
               <form-input title="Date" :model="date"></form-input>
             </div>
@@ -22,8 +22,8 @@
               <form-input title="Facility" :model="facility"></form-input>
             </div>
           </section>
-          <section class="flex flex-col" id="procedure">
-            <p>Procedure</p>
+          <section class="flex flex-col mb-8" id="procedure">
+            <p class="mx-1">Procedure</p>
             <div class="flex flex-row">
               <form-input title="Anesthesia Start" :model="anesthesiaStart"></form-input>
               <form-input title="Anesthesia End" :model="anesthesiaEnd"></form-input>
@@ -46,10 +46,10 @@
                 <form-input title="Line End" :model="lineEnd"></form-input>
               </div>
             </div>
-            <div class="flex flex-row">
+            <div class="inline-flex flex-row">
               <textarea
                 :model="notes"
-                class="w-full border border-red-500"
+                class="w-full h-24 m-1 mb-8 pl-4 pt-3 border border-gray-400 rounded"
                 placeholder="Additional Notes"
               ></textarea>
             </div>
@@ -57,15 +57,15 @@
           <section class="flex flex-col" id="controls">
             <div class="flex flex-row justify-around">
               <button
-                class="w-full bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
+                class="w-full h-12 bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
               >Add Block</button>
               <button
-                class="w-full bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
+                class="w-full h-12 bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
               >Add Line</button>
             </div>
             <div class="flex flex-row justify-around">
               <button
-                class="w-full bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
+                class="w-full h-12 bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
               >Save</button>
             </div>
           </section>

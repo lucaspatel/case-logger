@@ -1,15 +1,13 @@
 <template>
-  <input
-    v-model="model"
-    class="w-full h-12 pl-4 m-1 border border-gray-400 rounded"
-    :placeholder="title"
-  />
+  <button
+    class="w-full h-12 bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
+  >Save</button>
 </template>
 
 <script>
 export default {
-  name: "FormInput",
-  props: ["title", "model"],
+  name: "FormButton",
+  props: [""],
   data() {
     return {
       message: "Try change me!"
