@@ -55,19 +55,11 @@
             </div>
           </section>
           <section class="flex flex-col" id="controls">
-            <div class="flex flex-row justify-around">
-              <button
-                class="w-full h-12 bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded m-1"
-              >Add Block</button>
-              <button
-                class="w-full h-12 bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded m-1"
-              >Add Line</button>
+            <div class="flex justify-center">
+              <v-button class="m-1 w-1/2">Add Block</v-button>
+              <v-button class="m-1 w-1/2">Add Line</v-button>
             </div>
-            <div class="flex flex-row justify-around">
-              <button
-                class="w-full h-12 bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded m-1"
-              >Save</button>
-            </div>
+            <v-button class="m-1">Save</v-button>
           </section>
         </form>
       </div>
@@ -77,10 +69,12 @@
 
 <script>
 import FormInput from "~/components/FormInput.vue";
+import FormButton from "~/components/Button.vue";
 
 export default {
   components: {
-    FormInput
+    FormInput: FormInput,
+    "v-button": FormButton
   },
   data: {},
   metaInfo: {
