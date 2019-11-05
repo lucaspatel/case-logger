@@ -57,15 +57,15 @@
           <section class="flex flex-col" id="controls">
             <div class="flex flex-row justify-around">
               <button
-                class="w-full h-12 bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
+                class="w-full h-12 bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded m-1"
               >Add Block</button>
               <button
-                class="w-full h-12 bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
+                class="w-full h-12 bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded m-1"
               >Add Line</button>
             </div>
             <div class="flex flex-row justify-around">
               <button
-                class="w-full h-12 bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
+                class="w-full h-12 bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded m-1"
               >Save</button>
             </div>
           </section>
