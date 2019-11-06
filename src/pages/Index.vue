@@ -56,7 +56,7 @@
           </section>
           <section class="flex flex-col" id="controls">
             <div class="flex justify-center">
-              <v-button class="m-1 w-1/2">Add Block</v-button>
+              <v-button class="m-1 w-1/2">Add Block </v-button>
               <v-button class="m-1 w-1/2">Add Line</v-button>
             </div>
             <v-button class="m-1">Save</v-button>
@@ -78,7 +78,7 @@ export default {
   },
   data: {},
   metaInfo: {
-    title: "Hello, world!"
+    title: "Case Logger"
   }
 };
 </script>
