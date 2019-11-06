@@ -56,10 +56,10 @@
           </section>
           <section class="flex flex-col" id="controls">
             <div class="flex justify-center">
-              <v-button class="m-1 w-1/2">Add Block </v-button>
-              <v-button class="m-1 w-1/2">Add Line</v-button>
+              <FormButton class="m-1 w-1/2" :class="'bg-' + color + '-500'">Add Block </FormButton>
+              <FormButton class="m-1 w-1/2">Add Line</FormButton>
             </div>
-            <v-button class="m-1">Save</v-button>
+            <FormButton class="m-1">Save</FormButton>
           </section>
         </form>
       </div>
@@ -69,14 +69,16 @@
 
 <script>
 import FormInput from "~/components/FormInput.vue";
-import FormButton from "~/components/Button.vue";
+import FormButton from "~/components/FormButton.vue";
 
 export default {
   components: {
     FormInput: FormInput,
-    "v-button": FormButton
+    "FormButton": FormButton
   },
-  data: {},
+  data: {
+    
+  },
   metaInfo: {
     title: "Case Logger"
   }

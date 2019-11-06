@@ -7,12 +7,7 @@
 <script>
 export default {
   name: "FormButton",
-  props: {
-    color: {
-      type: String,
-      default: "bg-purple-500"
-    }
-  },
+  props: ['color'],
   data() {
     return {
       message: "Try change me!"
