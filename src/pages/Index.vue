@@ -25,8 +25,8 @@
           <section class="flex flex-col mb-8" id="procedure">
             <p class="mx-1">Procedure</p>
             <div class="flex flex-row">
-              <form-input title="Anesthesia Start" :model="anesthesiaStart"></form-input>
-              <form-input title="Anesthesia End" :model="anesthesiaEnd"></form-input>
+              <form-input title="Anesthesia Start" :model="anesthesiaStart" type="time"></form-input>
+              <form-input title="Anesthesia End" :model="anesthesiaEnd" type="time"></form-input>
             </div>
             <div class="block-template">
               <div class="flex flex-row">
