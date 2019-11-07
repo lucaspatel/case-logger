@@ -9,7 +9,7 @@
           <section class="flex flex-col mb-8" id="patient">
             <p class="mx-1">Patient</p>
             <div class="flex flex-row">
-              <form-input title="Date" :model="date"></form-input>
+              <form-input title="Date" :model="date" type="datetime-local"></form-input>
             </div>
             <div class="flex flex-row">
               <form-input title="MRN" :model="mrn"></form-input>
@@ -54,12 +54,14 @@
               ></textarea>
             </div>
           </section>
-          <section class="flex flex-col" id="controls">
-            <div class="flex justify-center">
-              <FormButton class="m-1 w-1/2" :class="'bg-' + color + '-500'">Add Block </FormButton>
-              <FormButton class="m-1 w-1/2">Add Line</FormButton>
+          <section class="flex flex-col mb-8" id="controls">
+            <div class="flex flex-row">
+              <FormButton class="w-1/2 m-1">Add Block </FormButton>
+              <FormButton class="w-1/2 m-1">Add Line</FormButton>
             </div>
-            <FormButton class="m-1">Save</FormButton>
+            <div class="flex flex-row">
+             <FormButton class="w-full m-1">Save</FormButton>
+            </div>
           </section>
         </form>
       </div>
