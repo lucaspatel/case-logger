@@ -1,16 +1,16 @@
 <template>
-  <button class="h-12 bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
-    <slot></slot>
-  </button>
+  <button
+    class="m-1 w-1/2 h-12 bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
+  >{{ message }}</button>
 </template>
 
 <script>
 export default {
   name: "FormButton",
-  props: ['color'],
+  props: ["message", "color"],
   data() {
     return {
-      message: "Try change me!"
+      retMessage: "This is it"
     };
   },
   methods: {
@@ -19,6 +19,8 @@ export default {
     }
   }
 };
+
+  
 </script>
 
 <style>
