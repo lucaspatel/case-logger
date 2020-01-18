@@ -1,9 +1,9 @@
 <template onload="addDateListener()">
   <Layout>
     <div class="flex flex-wrap justify-center bg-gray-200">
-      <div class="w-full sm:w-full md:w-1/2 lg:w-1/2 xl:w-1/3 px-2 bg-white">
+      <div class="w-full px-2 bg-white sm:w-full md:w-1/2 lg:w-1/2 xl:w-1/3">
         <header id="header">
-          <h1 class="text-4xl mx-1 py-8">Case Logger</h1>
+          <h1 class="py-8 mx-1 text-4xl">Case Logger</h1>
         </header>
         <form class="flex flex-col">
           <section class="flex flex-col mb-8" id="patient">
@@ -19,45 +19,19 @@
               <form-input title="Facility" :bind="facility"></form-input>
             </div>
           </section>
-          <section class="flex flex-col mb-8" id="procedure">
-            <p class="mx-1">Procedure</p>
-            <div class="flex flex-row">
-              <form-input id="anesthesiaStart" title="Anesthesia Start" :bind="anesthesiaStart" type="time"></form-input>
-              <form-input title="Anesthesia End" :bind="anesthesiaEnd" type="time"></form-input>
-            </div>
-            <div class="block-template">
-              <div class="flex flex-row">
-                <form-input title="Block" :bind="blockNum"></form-input>
-              </div>
-              <div class="flex flex-row">
-                <form-input title="Block Start" :bind="blockStart"></form-input>
-                <form-input title="Block End" :bind="blockEnd"></form-input>
-              </div>
-            </div>
-            <div class="line-template">
-              <div class="flex flex-row">
-                <form-input title="Line" :bind="lineNum"></form-input>
-              </div>
-              <div class="flex flex-row">
-                <form-input title="Line Start" :bind="lineStart"></form-input>
-                <form-input title="Line End" :bind="lineEnd"></form-input>
-              </div>
-            </div>
-            <div class="inline-flex flex-row">
-              <textarea
-                :bind="notes"
-                class="w-full h-24 m-1 mb-8 pl-4 pt-3 border border-gray-400 rounded"
-                placeholder="Additional Notes"
-              ></textarea>
-            </div>
-          </section>
-          <section class="flex flex-col mb-8" id="controls">
-            <div class="flex flex-row">
-              <form-button message="Add Block/Line"></form-button>
-              <form-button message="Remove Block/Line"></form-button>
-            </div>
-            <div class="flex flex-row">
-              <form-button message="Save"></form-button>
+          <block-line-group></block-line-group>
+          <block-line-group></block-line-group>
+          <div class="flex-row">
+            <textarea
+              :model="notes"
+              class="w-full h-24 pt-3 pl-4 m-1 mb-8 border border-gray-400 rounded"
+              placeholder="Additional Notes"
+            ></textarea>
+          </div>
+          <section class="flex flex-col" id="controls">
+            <div class="flex justify-center">
+              <v-button class="w-1/2 m-1">Add Block</v-button>
+              <v-button class="w-1/2 m-1">Add Line</v-button>
             </div>
           </section>
         </form>
@@ -69,11 +43,13 @@
 <script>
 import FormInput from "~/components/FormInput.vue";
 import FormButton from "~/components/FormButton.vue";
+import BlockLineGroup from "~/components/BlockLineGroup.vue";
 
 export default {
   components: {
     FormInput: FormInput,
-    FormButton: FormButton
+    FormButton: FormButton,
+    BlockLineGroup: BlockLineGroup
   },
   data() {
     return {
