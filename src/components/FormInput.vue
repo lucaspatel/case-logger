@@ -1,7 +1,9 @@
 <template>
   <input
-    v-model="model"
-    class="w-full h-12 pl-4 m-1 border border-gray-400 rounded"
+    :type="type"
+    class="appearance-none w-full h-12 pl-4 m-1 border border-gray-400 rounded"
+    v-bind:value="model"
+    v-on:input="$emit('input', $event.target.value)"
     :placeholder="title"
   />
 </template>
@@ -9,17 +11,18 @@
 <script>
 export default {
   name: "FormInput",
-  props: ["title", "model"],
-  data() {
-    return {
-      message: "Try change me!"
-    };
+  props: {
+    title: String,
+    type: {
+      type: String,
+      default: "text"
+    },
+    model: String
   },
-  methods: {
-    onClick() {
-      this.message = "Here you go :)";
-    }
-  }
+  data() {
+    return {};
+  },
+  methods: {}
 };
 </script>
 

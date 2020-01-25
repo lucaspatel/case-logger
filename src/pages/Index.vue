@@ -3,40 +3,62 @@
     <div class="flex flex-wrap justify-center bg-gray-200">
       <div class="w-full px-2 bg-white sm:w-full md:w-1/2 lg:w-1/2 xl:w-1/3">
         <header id="header">
-          <h1 class="py-8 mx-1 text-4xl">Case Logger</h1>
+          <h1 class="pt-8 pb-16 mx-1 text-4xl">Case Logger</h1>
         </header>
         <form class="flex flex-col">
           <section class="flex flex-col mb-8" id="patient">
             <p class="mx-1">Patient</p>
             <div class="flex flex-row">
-              <form-input title="Date" :model="date"></form-input>
+              <form-input title="Date" type="date" v-model="form.date"></form-input>
             </div>
             <div class="flex flex-row">
-              <form-input title="MRN" :model="mrn"></form-input>
+              <form-input title="MRN" v-model="form.patient.mrn"></form-input>
             </div>
             <div class="flex flex-row">
-              <form-input title="First Name" :model="firstName"></form-input>
-              <form-input title="Last Name" :model="lastName"></form-input>
-            </div>
-            <div class="flex flex-row">
-              <form-input title="Facility" :model="facility"></form-input>
+              <form-input title="First Name" v-model="form.patient.firstName"></form-input>
+              <form-input title="Facility" v-model="form.facility"></form-input>
             </div>
           </section>
-          <block-line-group></block-line-group>
-          <block-line-group></block-line-group>
-          <div class="flex-row">
+          <section class="flex flex-col">
+            <p class="mx-1">Procedure</p>
+            <div class="flex flex-row">
+              <form-input title="Case Description" v-model="form.case"></form-input>
+            </div>
+            <div class="flex flex-row flex-wrap m-1 justify-between" id="units">
+              <case-units-option
+                v-for="unit in unitDefaults"
+                :key="unit"
+                :unit="unit"
+                v-model="form.units"
+              ></case-units-option>
+            </div>
+            <div class="flex flex-row">
+              <form-input title="Anesthesia Start" type="time" v-model="form.anestStart"></form-input>
+              <form-input title="Anesthesia End" type="time" v-model="form.anestEnd"></form-input>
+            </div>
+            <block-line-group v-for="bl in form.blockLines" :key="bl.id" :bl="bl" :id="bl.id"></block-line-group>
+          </section>
+          <div class="flex-row pr-2">
             <textarea
-              :model="notes"
-              class="w-full h-24 pt-3 pl-4 m-1 mb-8 border border-gray-400 rounded"
+              v-model="form.notes"
+              class="appearance-none w-full h-24 pt-3 px-4 m-1 mb-8 border border-gray-400 rounded"
               placeholder="Additional Notes"
             ></textarea>
           </div>
-          <section class="flex flex-col" id="controls">
+          <section class="flex flex-col pb-4" id="controls">
             <div class="flex justify-center">
-              <v-button class="w-1/2 m-1">Add Block</v-button>
-              <v-button class="w-1/2 m-1">Add Line</v-button>
+              <form-button
+                class="w-1/2 m-1"
+                :action="addBL"
+                :disabled="form.blockLines.length >= 3"
+              >Add Block / Line</form-button>
+              <form-button
+                class="w-1/2 m-1"
+                :action="removeBL"
+                :disabled="form.blockLines.length <= 1"
+              >Remove Block / Line</form-button>
             </div>
-            <v-button class="m-1">Save</v-button>
+            <form-button class="m-1" :action="save">Save</form-button>
           </section>
         </form>
       </div>
@@ -46,27 +68,100 @@
 
 <script>
 import FormInput from "~/components/FormInput.vue";
-import FormButton from "~/components/Button.vue";
+import FormButton from "~/components/FormButton.vue";
 import BlockLineGroup from "~/components/BlockLineGroup.vue";
+import CaseUnitsOption from "~/components/CaseUnitsOption.vue";
 
 export default {
   components: {
     FormInput: FormInput,
-    "v-button": FormButton,
-    BlockLineGroup: BlockLineGroup
+    FormButton: FormButton,
+    BlockLineGroup: BlockLineGroup,
+    CaseUnitsOption: CaseUnitsOption
   },
-  data: {},
+  data() {
+    return {
+      blMax: "3",
+      unitDefaults: [1, 2, 3],
+      form: {
+        facility: "SRMC",
+        case: "",
+        units: 1,
+        date: this.getDate(),
+        anestStart: this.getTime(),
+        anestEnd: this.getTime(),
+        notes: "",
+        patient: {
+          firstName: "",
+          lastName: "",
+          mrn: ""
+        },
+        blockLines: [
+          {
+            id: 1,
+            name: "",
+            value: "",
+            start: "",
+            end: ""
+          }
+        ]
+      }
+    };
+  },
+  methods: {
+    save() {
+      console.log(JSON.stringify(this.$data.form, null, 2));
+    },
+    addBL() {
+      let nextId =
+        this.$data.form.blockLines[this.$data.form.blockLines.length - 1].id +
+        1;
+      let nextObj = {
+        id: nextId,
+        name: "",
+        value: "",
+        start: "",
+        end: ""
+      };
+      this.$data.form.blockLines.push(nextObj);
+    },
+    removeBL() {
+      this.$data.form.blockLines.pop();
+    },
+    getDate() {
+      let d = new Date(),
+        month = "" + (d.getMonth() + 1),
+        day = "" + d.getDate(),
+        year = d.getFullYear();
+      if (month.length < 2) month = "0" + month;
+      if (day.length < 2) day = "0" + day;
+
+      return [year, month, day].join("-");
+    },
+    getTime() {
+      let d = new Date(),
+        hour = "" + d.getHours(),
+        minute = "" + d.getMinutes();
+      if (hour.length < 2) hour = "0" + hour;
+      if (minute.length < 2) minute = "0" + minute;
+
+      return [hour, minute].join(":");
+    }
+  },
   metaInfo: {
     title: "Case Logger"
   }
 };
 </script>
 
-<style>
-.home-links a {
-  margin-right: 1rem;
-}
+<style lang="css">
 body {
   font-family: "Sarabun", sans-serif;
+}
+#unit-option:first-child {
+  @apply mr-2;
+}
+#unit-option:last-child {
+  @apply ml-2;
 }
 </style>

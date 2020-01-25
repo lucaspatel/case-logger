@@ -7,9 +7,9 @@
     "explore": "gridsome explore"
   },
   "dependencies": {
-    "gridsome": "^0.7.0"
+    "gridsome": "^0.7.12"
   },
   "devDependencies": {
-    "gridsome-plugin-tailwindcss": "^2.2.26"
+    "gridsome-plugin-tailwindcss": "^2.2.32"
   }
 }
