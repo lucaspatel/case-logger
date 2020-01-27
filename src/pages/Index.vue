@@ -29,10 +29,18 @@
           <section class="flex flex-col">
             <p class="mx-1">Procedure</p>
             <div class="flex flex-row">
-              <form-input
-                title="Case Description"
+              <select
+                class="w-full h-12 pl-3 m-1 bg-white border border-gray-400 rounded"
+                id="grid-state"
                 v-model="form.case"
-              ></form-input>
+              >
+                <option value="" class="text-gray-500" selected disabled hidden
+                  >Case Description</option
+                >
+                <option v-for="cas in cases" :key="cas.id" :value="cas.name">{{
+                  cas.name
+                }}</option>
+              </select>
             </div>
             <div class="flex flex-row flex-wrap justify-between" id="units">
               <case-units-option
@@ -108,6 +116,8 @@ import CustomCaseUnitsOption from "~/components/CustomCaseUnitsOption.vue";
 
 import clipboard from "clipboard-copy";
 
+import json from "../data/data.json";
+
 export default {
   components: {
     FormInput: FormInput,
@@ -119,7 +129,8 @@ export default {
   data() {
     return {
       blMax: "3",
-      unitDefaults: [1, 2, 3],
+      unitDefaults: json.unitDefaults,
+      cases: json.cases,
       form: {
         facility: "SRMC",
         case: "",
@@ -146,7 +157,6 @@ export default {
   },
   methods: {
     save() {
-      console.log(JSON.stringify(this.form, null, 2));
       clipboard(JSON.stringify(this.form, null, 2));
     },
     addBL() {
