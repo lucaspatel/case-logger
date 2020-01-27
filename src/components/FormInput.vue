@@ -1,10 +1,11 @@
 <template>
   <input
     :type="type"
-    class="appearance-none w-full h-12 pl-4 m-1 border border-gray-400 rounded"
-    v-bind:value="model"
-    v-on:input="$emit('input', $event.target.value)"
+    class="w-full h-12 pl-4 m-1 border border-gray-400 rounded appearance-none"
     :placeholder="title"
+    :value="model"
+    @input="$emit('input', $event.target.value)"
+    required
   />
 </template>
 
@@ -22,7 +23,11 @@ export default {
   data() {
     return {};
   },
-  methods: {}
+  methods: {
+    updateModel() {
+      this.$emit("onUpdatemModel", this.model);
+    }
+  }
 };
 </script>
 

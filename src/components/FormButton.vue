@@ -1,7 +1,7 @@
 <template>
   <button
     type="button"
-    class="h-12 bg-purple-500 text-white text-sm font-bold py-2 px-2 rounded"
+    class="h-12 px-2 py-2 text-sm font-bold text-white bg-purple-500 rounded"
     :disabled="disabled"
     :class="{ disabled: disabled, 'md:hover:bg-purple-700': !disabled }"
     @click="action"

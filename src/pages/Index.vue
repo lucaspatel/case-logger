@@ -9,39 +9,70 @@
           <section class="flex flex-col mb-8" id="patient">
             <p class="mx-1">Patient</p>
             <div class="flex flex-row">
-              <form-input title="Date" type="date" v-model="form.date"></form-input>
+              <form-input
+                title="Date"
+                type="date"
+                v-model="form.date"
+              ></form-input>
             </div>
             <div class="flex flex-row">
               <form-input title="MRN" v-model="form.patient.mrn"></form-input>
             </div>
             <div class="flex flex-row">
-              <form-input title="First Name" v-model="form.patient.firstName"></form-input>
+              <form-input
+                title="Initials"
+                v-model="form.patient.firstName"
+              ></form-input>
               <form-input title="Facility" v-model="form.facility"></form-input>
             </div>
           </section>
           <section class="flex flex-col">
             <p class="mx-1">Procedure</p>
             <div class="flex flex-row">
-              <form-input title="Case Description" v-model="form.case"></form-input>
+              <form-input
+                title="Case Description"
+                v-model="form.case"
+              ></form-input>
             </div>
-            <div class="flex flex-row flex-wrap m-1 justify-between" id="units">
+            <div class="flex flex-row flex-wrap justify-between" id="units">
               <case-units-option
                 v-for="unit in unitDefaults"
                 :key="unit"
                 :unit="unit"
                 v-model="form.units"
               ></case-units-option>
+              <custom-case-units-option
+                :options="unitDefaults"
+                v-model.number="form.units"
+              ></custom-case-units-option>
             </div>
             <div class="flex flex-row">
-              <form-input title="Anesthesia Start" type="time" v-model="form.anestStart"></form-input>
-              <form-input title="Anesthesia End" type="time" v-model="form.anestEnd"></form-input>
+              <form-input
+                title="Anesthesia Start"
+                type="time"
+                v-model="form.anestStart"
+              ></form-input>
+              <form-input
+                title="Anesthesia End"
+                type="time"
+                v-model="form.anestEnd"
+              ></form-input>
+              <label class="w-full h-12 pt-3 m-1 text-center text-gray-500">
+                <!--prettier-ignore-->
+                {{ minutes }} minute<span v-if="minutes !== 1">s</span>
+              </label>
             </div>
-            <block-line-group v-for="bl in form.blockLines" :key="bl.id" :bl="bl" :id="bl.id"></block-line-group>
+            <block-line-group
+              v-for="bl in form.blockLines"
+              :key="bl.id"
+              :bl="bl"
+              :id="bl.id"
+            ></block-line-group>
           </section>
           <div class="flex-row pr-2">
             <textarea
               v-model="form.notes"
-              class="appearance-none w-full h-24 pt-3 px-4 m-1 mb-8 border border-gray-400 rounded"
+              class="w-full h-24 px-4 pt-3 m-1 mb-8 border border-gray-400 rounded appearance-none"
               placeholder="Additional Notes"
             ></textarea>
           </div>
@@ -51,12 +82,14 @@
                 class="w-1/2 m-1"
                 :action="addBL"
                 :disabled="form.blockLines.length >= 3"
-              >Add Block / Line</form-button>
+                >Add Block / Line</form-button
+              >
               <form-button
                 class="w-1/2 m-1"
                 :action="removeBL"
-                :disabled="form.blockLines.length <= 1"
-              >Remove Block / Line</form-button>
+                :disabled="form.blockLines.length <= 0"
+                >Remove Block / Line</form-button
+              >
             </div>
             <form-button class="m-1" :action="save">Save</form-button>
           </section>
@@ -71,13 +104,17 @@ import FormInput from "~/components/FormInput.vue";
 import FormButton from "~/components/FormButton.vue";
 import BlockLineGroup from "~/components/BlockLineGroup.vue";
 import CaseUnitsOption from "~/components/CaseUnitsOption.vue";
+import CustomCaseUnitsOption from "~/components/CustomCaseUnitsOption.vue";
+
+import clipboard from "clipboard-copy";
 
 export default {
   components: {
     FormInput: FormInput,
     FormButton: FormButton,
     BlockLineGroup: BlockLineGroup,
-    CaseUnitsOption: CaseUnitsOption
+    CaseUnitsOption: CaseUnitsOption,
+    CustomCaseUnitsOption: CustomCaseUnitsOption
   },
   data() {
     return {
@@ -86,36 +123,34 @@ export default {
       form: {
         facility: "SRMC",
         case: "",
-        units: 1,
+        units: "",
         date: this.getDate(),
         anestStart: this.getTime(),
         anestEnd: this.getTime(),
         notes: "",
         patient: {
-          firstName: "",
-          lastName: "",
+          initials: "",
           mrn: ""
         },
-        blockLines: [
-          {
-            id: 1,
-            name: "",
-            value: "",
-            start: "",
-            end: ""
-          }
-        ]
+        blockLines: []
       }
     };
   },
+  computed: {
+    minutes() {
+      let diff =
+        Date.parse(this.form.date + "T" + this.form.anestEnd) -
+        Date.parse(this.form.date + "T" + this.form.anestStart);
+      return diff / 60000;
+    }
+  },
   methods: {
     save() {
-      console.log(JSON.stringify(this.$data.form, null, 2));
+      console.log(JSON.stringify(this.form, null, 2));
+      clipboard(JSON.stringify(this.form, null, 2));
     },
     addBL() {
-      let nextId =
-        this.$data.form.blockLines[this.$data.form.blockLines.length - 1].id +
-        1;
+      let nextId = this.form.blockLines.length + 1;
       let nextObj = {
         id: nextId,
         name: "",
@@ -123,10 +158,10 @@ export default {
         start: "",
         end: ""
       };
-      this.$data.form.blockLines.push(nextObj);
+      this.form.blockLines.push(nextObj);
     },
     removeBL() {
-      this.$data.form.blockLines.pop();
+      this.form.blockLines.pop();
     },
     getDate() {
       let d = new Date(),
@@ -157,11 +192,5 @@ export default {
 <style lang="css">
 body {
   font-family: "Sarabun", sans-serif;
-}
-#unit-option:first-child {
-  @apply mr-2;
-}
-#unit-option:last-child {
-  @apply ml-2;
 }
 </style>
