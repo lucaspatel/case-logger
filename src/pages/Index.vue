@@ -30,7 +30,7 @@
             <p class="mx-1">Procedure</p>
             <div class="flex flex-row">
               <select
-                class="w-full h-12 pl-3 m-1 bg-white border border-gray-400 rounded"
+                class="w-full h-12 pl-3 m-1 bg-white border border-gray-400 rounded appearance-none"
                 id="grid-state"
                 v-model="form.case"
               >

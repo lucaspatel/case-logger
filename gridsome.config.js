@@ -6,6 +6,8 @@
 
 module.exports = {
   siteName: 'Gridsome',
+  siteUrl: 'https://lucaspatel.github.io',
+  pathPrefix: '/case-logger',
   plugins: [
     {
         use: 'gridsome-plugin-tailwindcss',
